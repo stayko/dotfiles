@@ -23,6 +23,7 @@ call plug#end()
 
 let mapleader=" "
 
+set clipboard=unnamedplus
 " Prettier
 " when running at every change you may want to disable quickfix
 let g:prettier#quickfix_enabled = 0
@@ -122,7 +123,6 @@ let g:airline_powerline_fonts = 1
 set nowrap
 set smartcase
 set noswapfile
-set nobackup
 set undodir=~/.nvim/undodir
 set undofile
 set incsearch

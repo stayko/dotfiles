@@ -15,6 +15,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'mbbill/undotree'
 Plug 'ap/vim-css-color' "Displays a preview of colors with CSS
 Plug 'tpope/vim-fugitive'
+Plug 'franbach/miramare'
+Plug 'liuchengxu/vim-which-key'
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
 call plug#end()
 
 let mapleader=" "
@@ -42,7 +46,18 @@ set spell
 set spelllang=en_gb
 " theme stuff
 syntax enable
+
 colorscheme gruvbox
+
+"set termguicolors
+
+" the configuration options should be placed before `colorscheme miramare`
+"let g:miramare_enable_italic = 1
+"let g:miramare_disable_italic_comment = 1
+
+"colorscheme miramare
+"let g:airline_theme = 'miramare'
+
 set background=dark termguicolors cursorline
 
 hi! Normal ctermbg=NONE guibg=NONE 
@@ -52,6 +67,8 @@ let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
+
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 "switching between buffers
 map gn :bn<cr>
@@ -71,6 +88,9 @@ nnoremap <leader>l :wincmd l<CR>
 
 nnoremap <leader>g :G<CR>
 
+let g:ranger_map_keys = 0
+map <leader>r :Ranger<CR>
+
 " Open NERDTree in the directory of the current file (or /home if no file is open)
 nmap <leader>n :call NERDTreeToggleInCurDir()<cr>
 
@@ -87,16 +107,17 @@ function! NERDTreeToggleInCurDir()
    endif
 endfunction
 
-noremap <silent> <C-p> :GFiles<cr>
+noremap <silent> <C-p> :GFiles<CR>
 noremap <silent> <C-a> :Ag<cr>
 
-nnoremap <Leader>+ :vertical resize +5<CR>
+nnoremap <Leader>= :vertical resize +5<CR>
 nnoremap <Leader>- :vertical resize -5<CR>
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#buffer_nr_show=1
+let g:airline_powerline_fonts = 1
 
 set nowrap
 set smartcase
@@ -244,8 +265,8 @@ nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>

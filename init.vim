@@ -12,8 +12,8 @@
 "                                                                            "Y88P"
 
 call plug#begin('~/.plugged')
-Plug 'morhetz/gruvbox' "My favorite theme
-Plug 'preservim/nerdtree'
+Plug 'morhetz/gruvbox'
+"Plug 'preservim/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
@@ -26,12 +26,15 @@ Plug 'junegunn/goyo.vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'sheerun/vim-polyglot'
 Plug 'mbbill/undotree'
-Plug 'ap/vim-css-color' "Displays a preview of colors with CSS
+Plug 'ap/vim-css-color' 
 Plug 'tpope/vim-fugitive'
 Plug 'franbach/miramare'
 Plug 'liuchengxu/vim-which-key'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-startify'
+Plug 'acro5piano/vim-jsx-replace-tag'
 call plug#end()
 
 let mapleader=" "
@@ -55,6 +58,8 @@ set tabstop=2
 set shiftwidth=2
 " On pressing tab, insert 2 spaces
 set expandtab
+
+let g:fugitive_pty = 0
 
 set spell
 set spelllang=en_gb
@@ -84,16 +89,37 @@ let g:limelight_conceal_guifg = '#777777'
 
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
+function! s:Visual()
+  return visualmode() == 'V'
+endfunction
+
+function! s:Move(address, at_limit)
+  if s:Visual() && !a:at_limit
+    execute "'<,'>move " . a:address
+    call feedkeys('gv=', 'n')
+  endif
+  call feedkeys('gv', 'n')
+endfunction
+
+function! Move_up() abort range
+  let l:at_top=a:firstline == 1
+  call s:Move("'<-2", l:at_top)
+endfunction
+
+function! Move_down() abort range
+  let l:at_bottom=a:lastline == line('$')
+  call s:Move("'>+1", l:at_bottom)
+endfunction
+
+" Move VISUAL LINE selection within buffer.
+xnoremap <silent> K :call Move_up()<CR>
+xnoremap <silent> J :call Move_down()<CR>
+
 "switching between buffers
 map gn :bn<cr>
 map gp :bp<cr>
 map gw :bd<cr>
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+map <Tab> :bnext<cr>
 
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -105,21 +131,24 @@ nnoremap <leader>g :G<CR>
 let g:ranger_map_keys = 0
 map <leader>r :Ranger<CR>
 
+nnoremap <Leader>rt :JSXReplaceTag<CR>
 " Open NERDTree in the directory of the current file (or /home if no file is open)
-nmap <leader>n :call NERDTreeToggleInCurDir()<cr>
+"nmap <leader>n :call NERDTreeToggleInCurDir()<cr>
+"
+"function! NERDTreeToggleInCurDir()                                                                                                                                                             
+"   " If NERDTree is open in the current buffer
+"   if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+"      exe ":NERDTreeClose"
+"   else
+"      if (expand("%:t") != '')
+"         exe ":NERDTreeFind"
+"      else
+"         exe ":NERDTreeToggle"
+"      endif
+"   endif
+"endfunction
 
-function! NERDTreeToggleInCurDir()                                                                                                                                                             
-   " If NERDTree is open in the current buffer
-   if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-      exe ":NERDTreeClose"
-   else
-      if (expand("%:t") != '')
-         exe ":NERDTreeFind"
-      else
-         exe ":NERDTreeToggle"
-      endif
-   endif
-endfunction
+:nmap <leader>e :CocCommand explorer<CR>
 
 noremap <silent> <C-p> :GFiles<CR>
 noremap <silent> <C-a> :Ag<cr>
@@ -270,7 +299,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Show all diagnostics.
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <space>x  :<C-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.

@@ -6,7 +6,7 @@ window:
   padding:
     x: 15
     y: 15
-  decorations: none
+ # decorations: none
 scrolling:
   history: 10000
   multiplier: 3
@@ -16,13 +16,13 @@ dynamic_title: true
 # Font Customization
 font:
   normal:
-    family: MesloLGS NF 
+    family: Hack Nerd Font Mono
     style: Regular
   bold:
-    family: MesloLGS NF 
+    family: Hack Nerd Font Mono 
     style: Bold
   italic:
-    family: MesloLGS NF
+    family: Hack Nerd Font Mono
     style: Italic
   size: 13.25
   offset:
@@ -69,3 +69,4 @@ colors:
 cursor:
   style: Block
   unfocused_hollow: true
+

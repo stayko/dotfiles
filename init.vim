@@ -13,7 +13,7 @@
 
 call plug#begin('~/.plugged')
 Plug 'morhetz/gruvbox'
-"Plug 'preservim/nerdtree'
+Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
@@ -28,17 +28,21 @@ Plug 'sheerun/vim-polyglot'
 Plug 'mbbill/undotree'
 Plug 'ap/vim-css-color' 
 Plug 'tpope/vim-fugitive'
-Plug 'franbach/miramare'
 Plug 'liuchengxu/vim-which-key'
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-startify'
 Plug 'acro5piano/vim-jsx-replace-tag'
+Plug 'metakirby5/codi.vim'
+Plug 'voldikss/vim-floaterm'
+Plug 'chriskempson/base16-vim'
+Plug 'preservim/nerdcommenter'
+Plug 'diepm/vim-rest-console'
 call plug#end()
 
 let mapleader=" "
-
+let loaded_netrwPlugin = 1
 set clipboard=unnamedplus
 " Prettier
 " when running at every change you may want to disable quickfix
@@ -46,6 +50,20 @@ let g:prettier#quickfix_enabled = 0
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre,InsertLeave *.js,*.ts,*.jsx,*.tsx,*.json,*.css,*.scss,*.less,*.graphql Prettier
+
+let g:vrc_output_buffer_name = '__VRC_OUTPUT.<filetype>'
+
+let g:startify_session_dir = '~/.config/nvim/session'
+let g:startify_bookmarks = [
+            \ { 'c': '~/work/rest/API-Request.rest' },
+            \ { 'i': '~/.config/nvim/init.vim' },
+            \ { 'z': '~/.zshrc' },
+            \ ]
+
+let g:NERDSpaceDelims = 1
+let g:NERDCustomDelimiters={
+	\ 'typescriptreact': { 'left': '//', 'right': '', 'leftAlt': '{/*', 'rightAlt': '*/}' },
+\}
 
 " Line numbers on
 set number
@@ -63,19 +81,27 @@ let g:fugitive_pty = 0
 
 set spell
 set spelllang=en_gb
+
+let g:floaterm_keymap_toggle = '<F1>'
+let g:floaterm_keymap_next   = '<F2>'
+let g:floaterm_keymap_prev   = '<F3>'
+let g:floaterm_keymap_new    = '<F4>'
+
+" Floaterm
+let g:floaterm_gitcommit='floaterm'
+let g:floaterm_autoinsert=1
+let g:floaterm_width=0.8
+let g:floaterm_height=0.8
+let g:floaterm_wintitle=0
+let g:floaterm_autoclose=1
+
 " theme stuff
 syntax enable
+"colorscheme gruvbox
+"colorscheme onedark
+colorscheme base16-default-dark
 
-colorscheme gruvbox
-
-"set termguicolors
-
-" the configuration options should be placed before `colorscheme miramare`
-"let g:miramare_enable_italic = 1
-"let g:miramare_disable_italic_comment = 1
-
-"colorscheme miramare
-"let g:airline_theme = 'miramare'
+set termguicolors
 
 set background=dark termguicolors cursorline
 
@@ -115,11 +141,15 @@ endfunction
 xnoremap <silent> K :call Move_up()<CR>
 xnoremap <silent> J :call Move_down()<CR>
 
+map <leader>i :tabe ~/.config/nvim/init.vim<CR>
+map <leader>t :tabe ~/work/rest/API-Request.rest<CR>
+
 "switching between buffers
 map gn :bn<cr>
 map gp :bp<cr>
 map gw :bd<cr>
 map <Tab> :bnext<cr>
+map <S-Tab> :bprev<cr>
 
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -127,7 +157,8 @@ nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 
 nnoremap <leader>g :G<CR>
-
+nnoremap <leader>b :G blame<CR>
+ 
 let g:ranger_map_keys = 0
 map <leader>r :Ranger<CR>
 
@@ -156,7 +187,7 @@ noremap <silent> <C-a> :Ag<cr>
 nnoremap <Leader>= :vertical resize +5<CR>
 nnoremap <Leader>- :vertical resize -5<CR>
 
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ackprg = 'ag --nogroup  --column'
 
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#buffer_nr_show=1

@@ -1,3 +1,3 @@
 # dotfiles
 
-Config files for Neovim, Alacritty and Tmux
+Config files for Neovim, Alacritty, Tmux and ZSH

@@ -23,7 +23,7 @@ Plug 'ianks/vim-tsx'
 Plug 'leafgarland/typescript-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/goyo.vim'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'sheerun/vim-polyglot'
 Plug 'mbbill/undotree'
 Plug 'ap/vim-css-color' 
@@ -46,11 +46,12 @@ let loaded_netrwPlugin = 1
 set clipboard=unnamedplus
 " Prettier
 " when running at every change you may want to disable quickfix
-let g:prettier#quickfix_enabled = 0
+" let g:prettier#quickfix_enabled = 0
 
-let g:prettier#autoformat = 0
-autocmd BufWritePre,InsertLeave *.js,*.ts,*.jsx,*.tsx,*.json,*.css,*.scss,*.less,*.graphql Prettier
-
+" let g:prettier#autoformat = 0
+" autocmd BufWritePre,InsertLeave *.js,*.ts,*.jsx,*.tsx,*.json,*.css,*.scss,*.less,*.graphql Prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+autocmd BufWritePre,InsertLeave *.js,*.ts,*.jsx,*.tsx,*.json,*.css,*.scss,*.less,*.graphql,*.yml Prettier
 let g:vrc_output_buffer_name = '__VRC_OUTPUT.<filetype>'
 
 let g:startify_session_dir = '~/.config/nvim/session'
@@ -99,7 +100,9 @@ let g:floaterm_autoclose=1
 syntax enable
 "colorscheme gruvbox
 "colorscheme onedark
-colorscheme base16-default-dark
+"colorscheme base16-ia-dark 
+"colorscheme base16-default-dark
+colorscheme base16-ocean
 
 set termguicolors
 
@@ -113,36 +116,39 @@ let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
 
+xnoremap p pgvy
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
-function! s:Visual()
-  return visualmode() == 'V'
-endfunction
-
-function! s:Move(address, at_limit)
-  if s:Visual() && !a:at_limit
-    execute "'<,'>move " . a:address
-    call feedkeys('gv=', 'n')
-  endif
-  call feedkeys('gv', 'n')
-endfunction
-
-function! Move_up() abort range
-  let l:at_top=a:firstline == 1
-  call s:Move("'<-2", l:at_top)
-endfunction
-
-function! Move_down() abort range
-  let l:at_bottom=a:lastline == line('$')
-  call s:Move("'>+1", l:at_bottom)
-endfunction
+"function! s:Visual()
+"  return visualmode() == 'V'
+"endfunction
+"
+"function! s:Move(address, at_limit)
+"  if s:Visual() && !a:at_limit
+"    execute "'<,'>move " . a:address
+"    call feedkeys('gv=', 'n')
+"  endif
+"  call feedkeys('gv', 'n')
+"endfunction
+"
+"function! Move_up() abort range
+"  let l:at_top=a:firstline == 1
+"  call s:Move("'<-2", l:at_top)
+"endfunction
+"
+"function! Move_down() abort range
+"  let l:at_bottom=a:lastline == line('$')
+"  call s:Move("'>+1", l:at_bottom)
+"endfunction
 
 " Move VISUAL LINE selection within buffer.
-xnoremap <silent> K :call Move_up()<CR>
-xnoremap <silent> J :call Move_down()<CR>
+"xnoremap <silent> K :call Move_up()<CR>
+"xnoremap <silent> J :call Move_down()<CR>
 
 map <leader>i :tabe ~/.config/nvim/init.vim<CR>
 map <leader>t :tabe ~/work/rest/API-Request.rest<CR>
+
+noremap <leader>bd :%bd\|e#\|bd#<cr>\|'"
 
 "switching between buffers
 map gn :bn<cr>
@@ -163,21 +169,6 @@ let g:ranger_map_keys = 0
 map <leader>r :Ranger<CR>
 
 nnoremap <Leader>rt :JSXReplaceTag<CR>
-" Open NERDTree in the directory of the current file (or /home if no file is open)
-"nmap <leader>n :call NERDTreeToggleInCurDir()<cr>
-"
-"function! NERDTreeToggleInCurDir()                                                                                                                                                             
-"   " If NERDTree is open in the current buffer
-"   if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-"      exe ":NERDTreeClose"
-"   else
-"      if (expand("%:t") != '')
-"         exe ":NERDTreeFind"
-"      else
-"         exe ":NERDTreeToggle"
-"      endif
-"   endif
-"endfunction
 
 :nmap <leader>e :CocCommand explorer<CR>
 
@@ -199,7 +190,7 @@ set noswapfile
 set undodir=~/.nvim/undodir
 set undofile
 set incsearch
-set colorcolumn=120
+" set colorcolumn=120
 
 nnoremap <leader>u :UndotreeToggle<CR>
 
@@ -257,7 +248,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gz <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
@@ -276,6 +267,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)

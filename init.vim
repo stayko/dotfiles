@@ -39,6 +39,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'chriskempson/base16-vim'
 Plug 'preservim/nerdcommenter'
 Plug 'diepm/vim-rest-console'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 call plug#end()
 
 let mapleader=" "
@@ -51,7 +52,7 @@ set clipboard=unnamedplus
 " let g:prettier#autoformat = 0
 " autocmd BufWritePre,InsertLeave *.js,*.ts,*.jsx,*.tsx,*.json,*.css,*.scss,*.less,*.graphql Prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-autocmd BufWritePre,InsertLeave *.js,*.ts,*.jsx,*.tsx,*.json,*.css,*.scss,*.less,*.graphql,*.yml Prettier
+autocmd BufWritePre,InsertLeave *.js,*.ts,*.jsx,*.tsx,*.json,*.tf,*.css,*.scss,*.less,*.graphql,*.yml Prettier
 let g:vrc_output_buffer_name = '__VRC_OUTPUT.<filetype>'
 
 let g:startify_session_dir = '~/.config/nvim/session'

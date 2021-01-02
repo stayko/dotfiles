@@ -1,0 +1,24 @@
+{
+  "explorer.width": 40,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.previewAction.onHover": false,
+  "explorer.keyMappings": {
+    "<cr>": ["expandable?", "expand", "open"],
+    "v": "open:vsplit"
+  },
+  "explorer.file.showHiddenFiles": true,
+  "tsserver.enable": true,
+  "typescript.updateImportsOnFileMove.enable": true,
+  "javascript.updateImportsOnFileMove.enable": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "js",
+    "ts",
+    "jsx",
+    "tsx",
+    "json",
+    "scss",
+    "less",
+    "css",
+    "markdown"
+  ]
+}

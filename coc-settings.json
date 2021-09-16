@@ -2,10 +2,6 @@
   "explorer.width": 40,
   "explorer.icon.enableNerdfont": true,
   "explorer.previewAction.onHover": false,
-  "explorer.keyMappings": {
-    "<cr>": ["expandable?", "expand", "open"],
-    "v": "open:vsplit"
-  },
   "explorer.file.showHiddenFiles": true,
   "tsserver.enable": true,
   "typescript.updateImportsOnFileMove.enable": true,
@@ -19,6 +15,8 @@
     "scss",
     "less",
     "css",
-    "markdown"
+    "yml",
+    "yaml",
+    "md"
   ]
 }

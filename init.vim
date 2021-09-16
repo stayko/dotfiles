@@ -40,11 +40,15 @@ Plug 'chriskempson/base16-vim'
 Plug 'preservim/nerdcommenter'
 Plug 'diepm/vim-rest-console'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'ryanoasis/vim-devicons'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
 let mapleader=" "
 let loaded_netrwPlugin = 1
 set clipboard=unnamedplus
+
 " Prettier
 " when running at every change you may want to disable quickfix
 " let g:prettier#quickfix_enabled = 0
@@ -66,6 +70,8 @@ let g:NERDSpaceDelims = 1
 let g:NERDCustomDelimiters={
 	\ 'typescriptreact': { 'left': '//', 'right': '', 'leftAlt': '{/*', 'rightAlt': '*/}' },
 \}
+
+set encoding=UTF-8
 
 " Line numbers on
 set number
@@ -103,7 +109,7 @@ syntax enable
 "colorscheme onedark
 "colorscheme base16-ia-dark 
 "colorscheme base16-default-dark
-colorscheme base16-ocean
+colorscheme base16-summerfruit-dark
 
 set termguicolors
 
@@ -172,6 +178,7 @@ map <leader>r :Ranger<CR>
 nnoremap <Leader>rt :JSXReplaceTag<CR>
 
 :nmap <leader>e :CocCommand explorer<CR>
+:nmap <leader>w :CocCommand swagger.render<CR>
 
 noremap <silent> <C-p> :GFiles<CR>
 noremap <silent> <C-a> :Ag<cr>
@@ -189,7 +196,7 @@ set nowrap
 set smartcase
 set noswapfile
 set undodir=~/.nvim/undodir
-set undofile
+" set undofile
 set incsearch
 " set colorcolumn=120
 
@@ -336,3 +343,10 @@ nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Using Lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git'}})<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+

@@ -121,6 +121,11 @@ export NODE_OPTIONS=--max_old_space_size=4096
 
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+# Import colorscheme from 'wal' asynchronously
+# &   # Run the process in the background.
+# ( ) # Hide shell job control messages.
+# Not supported in the "fish" shell.
+(cat ~/.cache/wal/sequences &)
 
 echo "                                ";
 echo "██████╗  █████╗ ███████╗██╗  ██╗";
@@ -130,3 +135,5 @@ echo "██╔══██╗██╔══██║╚════██║�
 echo "██████╔╝██║  ██║███████║██║  ██║";
 echo "╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝";
 echo "                                ";
+
+alias v="nvim"

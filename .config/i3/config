@@ -182,7 +182,10 @@ bindsym $mod+r mode "resize"
 # }
 
 # Moving workspaces between screens 
-bindsym $mod+p move workspace to output right
+bindsym $mod+Control+2 move workspace to output DP-0
+bindsym $mod+Control+1 move workspace to output HDMI-0
+bindsym $mod+Control+h move workspace to output left
+bindsym $mod+Control+l move workspace to output right
 
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh --forest
@@ -208,13 +211,37 @@ gaps inner 10
 exec_always picom --config .config/picom/picom.conf --experimental-backends
 
 # class                 border  backgr. text    indicator child_border
-client.focused          #1f5453 #1f5453 #ffffff #1f5453   #1f5453
-client.focused_inactive #333333 #333333 #ffffff #333333   #333333
-client.unfocused        #333333 #333333 #83a5bc #333333   #333333
+# client.focused          #1f5453 #1f5453 #ffffff #1f5453   #1f5453
+# client.focused_inactive #333333 #333333 #ffffff #333333   #333333
+# client.unfocused        #333333 #333333 #83a5bc #333333   #333333
 
 # start rofi (a program launcher)
-# bindsym $mod+d exec rofi -show drun
-bindsym $mod+d exec ~/.config/polybar/forest/scripts/launcher.sh &
+bindsym $mod+d exec rofi -show drun
+# bindsym $mod+d exec ~/.config/polybar/forest/scripts/launcher.sh &
 # file browser
 bindsym $mod+n exec nautilus
+bindsym $mod+c exec google-chrome
 
+# fix workspace 1 and 2 to specific monitors
+workspace $ws2 output DP-0
+workspace $ws1 output HDMI-0
+
+# Set colors from Xresources
+# Change 'color7' and 'color2' to whatever colors you want i3 to use 
+# from the generated scheme.
+# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
+# it fails to get colors from Xresources.
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color2 #f0f0f0
+
+# class                 border  backgr. text indicator child_border
+client.focused          $bg     $bg     $fg  $bg       $bg
+client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.urgent           $bg     $bg     $fg  $bg       $bg
+client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+client.background       $bg
+
+# PROTIP: You can also dynamically set dmenu's colors this way:
+# bindsym $mod+d exec dmenu_run -nb "$fg" -nf "$bg" -sb "$bg" -sf "$fg"

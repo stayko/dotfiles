@@ -45,6 +45,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'github/copilot.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'dylanaraps/wal.vim'
 call plug#end()
 
 let mapleader=" "
@@ -111,7 +112,8 @@ syntax enable
 "colorscheme onedark
 "colorscheme base16-unikity-dark
 "colorscheme base16-default-dark
-colorscheme base16-atelier-lakeside
+colorscheme base16-apathy
+" colorscheme wal
 
 set termguicolors
 

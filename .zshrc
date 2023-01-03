@@ -76,7 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -105,15 +105,18 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+# for thefuck
+export PATH="/home/stayko/.local/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+# BASE16_SHELL="$HOME/.config/base16-shell/"
+# [ -n "$PS1" ] && \
+    # [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        # eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 eval $(thefuck --alias)
 
@@ -125,15 +128,42 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.
 # Not supported in the "fish" shell.
-(cat ~/.cache/wal/sequences &)
-
-echo "                                ";
-echo "██████╗  █████╗ ███████╗██╗  ██╗";
-echo "██╔══██╗██╔══██╗██╔════╝██║  ██║";
-echo "██████╔╝███████║███████╗███████║";
-echo "██╔══██╗██╔══██║╚════██║██╔══██║";
-echo "██████╔╝██║  ██║███████║██║  ██║";
-echo "╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝";
-echo "                                ";
+# (cat ~/.cache/wal/sequences &)
 
 alias v="nvim"
+
+# NPM_PACKAGES="${HOME}/.npm-packages"
+
+# export PATH="$PATH:$NPM_PACKAGES/bin"
+
+# Preserve MANPATH if you already defined it somewhere in your config.
+# Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
+# export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+
+eval 
+TWILIO_AC_ZSH_SETUP_PATH=/home/stayko/.twilio-cli/autocomplete/zsh_setup && test -f $TWILIO_AC_ZSH_SETUP_PATH && source $TWILIO_AC_ZSH_SETUP_PATH; # twilio autocomplete setup
+
+### RANDOM COLOR SCRIPT ###
+colorscript random
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
+
+export PATH=~/.npm-global/bin:$PATH 
+
+# alias pnpx='pnpm dlx'
+
+# pnpm
+export PNPM_HOME="/home/stayko/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+# bit
+export PATH="$PATH:/home/stayko/bin"
+# bit end
+# Added by Amplify CLI binary installer
+export PATH="$HOME/.amplify/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

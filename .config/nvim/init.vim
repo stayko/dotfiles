@@ -68,7 +68,7 @@ set clipboard+=unnamedplus
 " let g:prettier#autoformat = 0
 " autocmd BufWritePre,InsertLeave *.js,*.ts,*.jsx,*.tsx,*.json,*.css,*.scss,*.less,*.graphql Prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.json,*.tf,*.css,*.scss,*.less,*.html,*.graphql,*.conf,*.yml Prettier
+autocmd BufWritePre *.js,*.ts,*.jsx,*.tsx,*.json,*.tf,*.css,*.scss,*.less,*.java,*.html,*.graphql,*.conf,*.yml Prettier
 let g:vrc_output_buffer_name = '__VRC_OUTPUT.<filetype>'
 
 let g:startify_session_dir = '~/.config/nvim/session'
@@ -106,6 +106,10 @@ let g:floaterm_keymap_toggle = '<F1>'
 let g:floaterm_keymap_next   = '<F2>'
 let g:floaterm_keymap_prev   = '<F3>'
 let g:floaterm_keymap_new    = '<F4>'
+
+" Zoom in / out of split
+noremap Zz <c-w>_ \| <c-w>\|
+noremap Zo <c-w>=
 
 " Floaterm
 let g:floaterm_gitcommit='floaterm'
